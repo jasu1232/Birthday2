@@ -1,463 +1,655 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Jasmine - The Hollywood Premiere</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --gold: #ffd700;
-      --gold-glow: rgba(255, 215, 0, 0.6);
-      --neon-pink: #ff0055;
-      --cyan: #00f2fe;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Prashant! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #03010a;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      overflow-x: hidden;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+        }
 
-    canvas#fxCanvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: 1;
-      pointer-events: none;
-    }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    .main-wrapper {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 900px;
-      padding: 30px 20px;
-      text-align: center;
-    }
+        /* Fireworks */
+        .firework {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: explode 1.5s ease-out infinite;
+        }
 
-    /* Sound Pill */
-    .sound-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 10px 20px;
-      border-radius: 50px;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      font-weight: bold;
-      font-size: 0.9rem;
-      transition: 0.3s;
-    }
-    .sound-btn:hover { background: var(--gold); color: #000; }
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
 
-    /* Scene Visibility Engine */
-    .scene {
-      display: none;
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .scene.show {
-      display: block !important;
-      opacity: 1 !important;
-      transform: scale(1) !important;
-    }
+        /* Balloons */
+        .balloon {
+            position: fixed;
+            bottom: -150px;
+            width: 80px;
+            height: 100px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: float 8s ease-in infinite;
+        }
 
-    /* Typography & Animations */
-    .sub-head {
-      font-size: 1rem;
-      letter-spacing: 8px;
-      color: #aaa;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
-    .countdown-box {
-      font-size: clamp(5rem, 15vw, 9rem);
-      font-weight: 900;
-      font-family: 'Cinzel', serif;
-      color: var(--gold);
-      text-shadow: 0 0 40px var(--gold-glow);
-      margin: 10px 0;
-    }
-    .hero-name {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(3rem, 10vw, 6.5rem);
-      font-weight: 900;
-      letter-spacing: 10px;
-      background: linear-gradient(135deg, #fff 0%, var(--gold) 60%, #ff8c00 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 35px var(--gold-glow));
-      margin-bottom: 15px;
-    }
-    .hero-tag {
-      font-size: 1.4rem;
-      letter-spacing: 6px;
-      color: #00f2fe;
-      margin-bottom: 25px;
-    }
+        @keyframes float {
+            0% {
+                bottom: -150px;
+                transform: translateX(0) rotate(0deg);
+            }
+            50% {
+                transform: translateX(20px) rotate(5deg);
+            }
+            100% {
+                bottom: 110vh;
+                transform: translateX(-20px) rotate(-5deg);
+            }
+        }
 
-    /* Buttons */
-    .btn {
-      padding: 16px 40px;
-      font-size: 1.1rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #000;
-      background: linear-gradient(45deg, var(--gold), #ffaa00);
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-      transition: 0.3s;
-      margin-top: 25px;
-    }
-    .btn:hover {
-      transform: scale(1.06);
-      box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
-    }
+        .balloon:nth-child(1) { left: 10%; background: #ff6b6b; animation-delay: 0s; }
+        .balloon:nth-child(2) { left: 30%; background: #4ecdc4; animation-delay: 1s; }
+        .balloon:nth-child(3) { left: 50%; background: #ffe66d; animation-delay: 2s; }
+        .balloon:nth-child(4) { left: 70%; background: #a8e6cf; animation-delay: 3s; }
+        .balloon:nth-child(5) { left: 85%; background: #ff8b94; animation-delay: 4s; }
 
-    /* Cake & Candle */
-    .cake-box {
-      position: relative;
-      width: 200px;
-      height: 180px;
-      margin: 30px auto;
-      cursor: pointer;
-    }
-    .cake-tier {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 12px 12px 0 0;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-    }
-    .tier-1 {
-      bottom: 0; width: 200px; height: 75px;
-      background: linear-gradient(90deg, #ff0055, #ff5e62);
-    }
-    .tier-2 {
-      bottom: 75px; width: 140px; height: 55px;
-      background: linear-gradient(90deg, #ffd700, #ffb300);
-    }
-    .candle {
-      position: absolute;
-      top: 15px; left: 50%;
-      transform: translateX(-50%);
-      width: 14px; height: 35px;
-      background: #fff;
-      border-radius: 4px;
-    }
-    .flame {
-      position: absolute;
-      top: -24px; left: 50%;
-      transform: translateX(-50%);
-      width: 18px; height: 26px;
-      background: radial-gradient(circle, #fff, #ff8c00, #ff0000);
-      border-radius: 50% 50% 20% 20%;
-      box-shadow: 0 0 20px #ff8c00;
-      animation: flameWobble 0.2s infinite alternate;
-      transition: 0.4s;
-    }
-    .flame.off { opacity: 0; transform: translateX(-50%) scale(0); }
-    @keyframes flameWobble {
-      0% { transform: translateX(-50%) scale(1); }
-      100% { transform: translateX(-50%) scale(1.1) rotate(3deg); }
-    }
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            animation: fall 4s linear infinite;
+        }
 
-    /* Cards */
-    .memories-row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin: 30px 0;
-    }
-    .card {
-      background: #fff;
-      color: #111;
-      padding: 15px 15px 25px 15px;
-      border-radius: 4px;
-      width: 200px;
-      transform: rotate(-3deg);
-      transition: 0.3s;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-    }
-    .card:nth-child(2) { transform: rotate(4deg); }
-    .card:nth-child(3) { transform: rotate(-2deg); }
-    .card:hover { transform: scale(1.08) rotate(0deg); z-index: 5; }
-    .card-photo {
-      height: 150px;
-      background: linear-gradient(135deg, #1b0a2a, #3b0c5a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-    }
-    .card p { margin-top: 12px; font-weight: bold; font-family: 'Playfair Display', serif; }
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: rotateZ(0deg);
+            }
+            100% {
+                top: 110%;
+                transform: rotateZ(360deg);
+            }
+        }
 
-    /* Final Speech */
-    .speech-box {
-      background: rgba(20, 15, 30, 0.85);
-      border: 2px solid var(--gold);
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
-      padding: 40px 25px;
-      border-radius: 16px;
-      line-height: 1.9;
-      font-size: 1.2rem;
-      font-family: 'Playfair Display', serif;
-    }
-  </style>
+        /* Header Section */
+        .header {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-title {
+            font-size: 6rem;
+            font-weight: bold;
+            text-align: center;
+            animation: bounceIn 2s ease;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .subtitle {
+            font-size: 2.5rem;
+            animation: fadeInUp 2s ease 0.5s backwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cake Section */
+        .cake-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .cake {
+            position: relative;
+            width: 300px;
+            animation: floatCake 3s ease-in-out infinite;
+        }
+
+        @keyframes floatCake {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .cake-layer {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to right, #ff6b9d, #c44569);
+            border-radius: 10px;
+            margin-bottom: 5px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .cake-layer:nth-child(2) {
+            width: 80%;
+            margin: 0 auto 5px;
+            background: linear-gradient(to right, #feca57, #ee5a6f);
+        }
+
+        .cake-layer:nth-child(3) {
+            width: 60%;
+            margin: 0 auto;
+            background: linear-gradient(to right, #ff9ff3, #feca57);
+        }
+
+        .candles {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: -40px;
+        }
+
+        .candle {
+            width: 10px;
+            height: 60px;
+            background: linear-gradient(to bottom, #fff, #ffe5e5);
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .flame {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 30px;
+            background: radial-gradient(circle, #ffeb3b 0%, #ff9800 50%, #ff5722 100%);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 0.3s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Wishes Section */
+        .wishes-section {
+            min-height: 100vh;
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+        .wish-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 30px auto;
+            max-width: 800px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .wish-card h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffe66d;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .wish-card p {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #fff;
+        }
+
+        /* Gift Box */
+        .gift-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            position: relative;
+            animation: shake 2s ease infinite;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #ffd700;
+            transform: translateY(-50%);
+        }
+
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            background: #ffd700;
+            transform: translateX(-50%);
+        }
+
+        .bow {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: #ff6b9d;
+            border-radius: 50%;
+        }
+
+        .bow::before,
+        .bow::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #ff6b9d;
+            border-radius: 50%;
+            top: 10px;
+        }
+
+        .bow::before { left: -35px; }
+        .bow::after { right: -35px; }
+
+        /* Stars */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Telegram Section */
+        .telegram-section {
+            min-height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 50px;
+        }
+
+        .telegram-btn {
+            background: linear-gradient(135deg, #0088cc, #00aced);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.5);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .telegram-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 136, 204, 0.7);
+        }
+
+        /* Photo Gallery */
+        .gallery {
+            min-height: 100vh;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .gallery h2 {
+            font-size: 4rem;
+            margin-bottom: 50px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: photoFloat 3s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+        }
+
+        .photo-frame:nth-child(even) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Music Note */
+        .music-note {
+            position: fixed;
+            font-size: 2rem;
+            animation: musicFloat 4s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes musicFloat {
+            0% {
+                bottom: -50px;
+                transform: translateX(0) rotate(0deg);
+            }
+            100% {
+                bottom: 110vh;
+                transform: translateX(100px) rotate(360deg);
+            }
+        }
+
+        /* Final Message */
+        .final-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .final-message {
+            font-size: 3rem;
+            line-height: 1.6;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 3rem; }
+            .subtitle { font-size: 1.5rem; }
+            .wish-card h2 { font-size: 2rem; }
+            .wish-card p { font-size: 1.2rem; }
+            .gallery h2 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
+    <!-- Stars -->
+    <div class="stars" id="stars"></div>
 
-  <canvas id="fxCanvas"></canvas>
+    <!-- Balloons -->
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
 
-  <button class="sound-btn" id="soundToggle" onclick="toggleAudio()">🔊 Play Birthday Music</button>
-
-  <div class="main-wrapper">
-
-    <!-- STAGE 1: COUNTDOWN -->
-    <div class="scene show" id="scene1">
-      <p class="sub-head">A Worldwide Blockbuster Premiere</p>
-      <div class="countdown-box" id="cntBox">3</div>
-      <p style="color: #888; letter-spacing: 4px;">GET READY FOR JASMINE'S DAY</p>
-      <button class="btn" onclick="triggerSceneJump(2)">Launch Premiere Directly ✨</button>
+    <!-- Header -->
+    <div class="header">
+        <h1 class="main-title">🎉 HAPPY BIRTHDAY 🎉</h1>
+        <p class="subtitle">Prashant Bhai! 🎂</p>
     </div>
 
-    <!-- STAGE 2: MARVEL STYLE TITLE -->
-    <div class="scene" id="scene2">
-      <p class="sub-head">✨ THE SPOTLIGHT IS ON ✨</p>
-      <h1 class="hero-name">JASMINE</h1>
-      <p class="hero-tag">PURE MAGIC • REAL QUEEN</p>
-      <p style="color: #ccc; max-width: 650px; margin: 0 auto; line-height: 1.8; font-size: 1.1rem;">
-        Wishing you 365 days of Hollywood glamour, boundless smiles, and unstoppable success!
-      </p>
-      <button class="btn" onclick="triggerSceneJump(3)">Cut The Special Cake 🎂</button>
-    </div>
-
-    <!-- STAGE 3: INTERACTIVE CAKE -->
-    <div class="scene" id="scene3">
-      <p class="sub-head">MAKE A SECRET WISH</p>
-      <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 5px;">Tap Flame to Blow Candle</h2>
-      
-      <div class="cake-box" onclick="blowCandle()">
-        <div class="candle">
-          <div class="flame" id="cakeFlame"></div>
+    <!-- Cake Section -->
+    <div class="cake-section">
+        <div class="cake">
+            <div class="candles">
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+            </div>
+            <div class="cake-layer"></div>
+            <div class="cake-layer"></div>
+            <div class="cake-layer"></div>
         </div>
-        <div class="cake-tier tier-2"></div>
-        <div class="cake-tier tier-1"></div>
-      </div>
-
-      <div id="candleBlownMsg" style="display: none; margin-top: 15px;">
-        <p style="color: #00f2fe; font-size: 1.3rem; font-weight: bold;">✨ Wish Granted by the Stars! ✨</p>
-        <button class="btn" onclick="triggerSceneJump(4)">Walk The Red Carpet 🌟</button>
-      </div>
     </div>
 
-    <!-- STAGE 4: MEMORIES -->
-    <div class="scene" id="scene4">
-      <p class="sub-head">HALL OF FAME</p>
-      <h2 style="font-family: 'Cinzel', serif; color: var(--gold);">The Superstar Edition</h2>
-      
-      <div class="memories-row">
-        <div class="card">
-          <div class="card-photo">👑</div>
-          <p>The Queen</p>
+    <!-- Wishes Section -->
+    <div class="wishes-section">
+        <div class="wish-card">
+            <h2>🌟 Dost! 🌟</h2>
+            <p>Aaj tera din hai! Aaj tu raja hai! 👑<br>
+            Tere liye duniya ki saari khushiyan leke aaya hun!<br>
+            Teri har khwaish puri ho, har sapna sach ho!<br>
+            Tu hamesha muskurata rahe! 😊</p>
         </div>
-        <div class="card">
-          <div class="card-photo">💎</div>
-          <p>One in a Million</p>
-        </div>
-        <div class="card">
-          <div class="card-photo">✨</div>
-          <p>Pure Radiance</p>
-        </div>
-      </div>
 
-      <button class="btn" onclick="triggerSceneJump(5)">Read Royal Wishes 💌</button>
+        <div class="wish-card">
+            <h2>💫 Yaadon Ka Safar 💫</h2>
+            <p>Yaad hai wo din? Jab hum pehli baar mile the?<br>
+            Kitna maza aata hai tere saath!<br>
+            Har lamha special hai tere saath ka!<br>
+            Tu sirf dost nahi, ek bhai hai mera! ❤️</p>
+        </div>
+
+        <div class="wish-card">
+            <h2>🎁 Birthday Wish 🎁</h2>
+            <p>Is saal tu aur bhi successful ho!<br>
+            Tere paas pyaar ki koi kami na ho!<br>
+            Khushiyan tere ghar ka darwaza khatkhataye!<br>
+            Aur tu hamesha khush rahe! 🌈</p>
+        </div>
+
+        <div class="wish-card">
+            <h2>🚀 Teri Journey 🚀</h2>
+            <p>Prashant bhai, tu bohot aage jayega!<br>
+            Teri mehnat kabhi waste nahi hogi!<br>
+            Success teri kismat mein likhi hai!<br>
+            Bas apne goals pe focus rakh! 💪</p>
+        </div>
     </div>
 
-    <!-- STAGE 5: GRAND FINALE -->
-    <div class="scene" id="scene5">
-      <div class="speech-box">
-        <p style="color: var(--gold); font-size: 1.5rem; margin-bottom: 10px;">Dearest Jasmine,</p>
-        <p>
-          You don't just light up rooms—you bring energy, kindness, and warmth everywhere you go. 
-          May this year bring you the biggest opportunities, good health, and infinite happiness!
-        </p>
-        <p style="margin-top: 20px; font-weight: 800; color: #fff; font-size: 1.3rem;">
-          Happy Birthday, Superstar! 🎉
-        </p>
-      </div>
-      <button class="btn" onclick="startMegaFireworks()">Launch Sky Fireworks 🎆</button>
+    <!-- Gift Section -->
+    <div class="gift-section">
+        <h2 style="font-size: 3rem; margin-bottom: 50px;">🎁 Tere Liye Special Gift! 🎁</h2>
+        <div class="gift-box">
+            <div class="bow"></div>
+        </div>
+        <p style="font-size: 1.5rem; margin-top: 30px;">Gift toh dosti hai meri! ❤️</p>
     </div>
 
-  </div>
+    <!-- Gallery Section -->
+    <div class="gallery">
+        <h2>🎨 Celebration Time! 🎨</h2>
+        <div class="photo-grid">
+            <div class="photo-frame">🎂</div>
+            <div class="photo-frame">🎉</div>
+            <div class="photo-frame">🎈</div>
+            <div class="photo-frame">🎁</div>
+            <div class="photo-frame">🎊</div>
+            <div class="photo-frame">🥳</div>
+            <div class="photo-frame">🎵</div>
+            <div class="photo-frame">🌟</div>
+            <div class="photo-frame">💝</div>
+            <div class="photo-frame">🎆</div>
+            <div class="photo-frame">🍰</div>
+            <div class="photo-frame">🎇</div>
+        </div>
+    </div>
 
-  <script>
-    // 1. BULLETPROOF SCENE CHANGER (Never gets stuck)
-    function triggerSceneJump(num) {
-      document.querySelectorAll('.scene').forEach(s => s.classList.remove('show'));
-      const next = document.getElementById('scene' + num);
-      if (next) {
-        next.classList.add('show');
-      }
-      burstFireworks(window.innerWidth / 2, window.innerHeight / 2);
-      if (!isAudioPlaying) {
-        startSound();
-      }
-    }
+    <!-- Telegram Section -->
+    <div class="telegram-section">
+        <h2 style="font-size: 3rem; margin-bottom: 30px;">📱 Mil Bhai! 📱</h2>
+        <a href="https://t.me/prashant7700" class="telegram-btn" target="_blank">
+            Telegram Pe Message Kar! 💬
+        </a>
+    </div>
 
-    // Auto-countdown on load
-    window.addEventListener('load', () => {
-      let timeLeft = 3;
-      const box = document.getElementById('cntBox');
-      const timer = setInterval(() => {
-        timeLeft--;
-        if (timeLeft > 0) {
-          box.innerText = timeLeft;
-        } else {
-          clearInterval(timer);
-          // Scene 1 se Scene 2 par bina fail hue move karega
-          if (document.getElementById('scene1').classList.contains('show')) {
-            triggerSceneJump(2);
-          }
+    <!-- Final Section -->
+    <div class="final-section">
+        <div class="final-message">
+            🎊 Once Again 🎊<br>
+            HAPPY BIRTHDAY<br>
+            PRASHANT BHAI! 🎂<br>
+            <br>
+            Party Hard! 🥳🎉
+        </div>
+    </div>
+
+    <script>
+        // Create Stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
         }
-      }, 1000);
-    });
 
-    function blowCandle() {
-      document.getElementById('cakeFlame').classList.add('off');
-      document.getElementById('candleBlownMsg').style.display = 'block';
-      burstFireworks(window.innerWidth / 2, window.innerHeight * 0.4);
-    }
-
-    let finaleTimer = null;
-    function startMegaFireworks() {
-      if (finaleTimer) return;
-      finaleTimer = setInterval(() => {
-        burstFireworks(Math.random() * window.innerWidth, Math.random() * (window.innerHeight * 0.6));
-      }, 300);
-    }
-
-    // 2. STABLE AUDIO SYNTHESIZER
-    let audioCtx = null;
-    let isAudioPlaying = false;
-
-    function startSound() {
-      try {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // Create Confetti
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDelay = Math.random() * 4 + 's';
+            confetti.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.body.appendChild(confetti);
         }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        playMelody();
-        isAudioPlaying = true;
-        document.getElementById('soundToggle').innerText = "🎶 Playing Music";
-      } catch(e) {
-        console.log("Audio waiting for user gesture");
-      }
-    }
 
-    function toggleAudio() {
-      if (isAudioPlaying) {
-        if (audioCtx) audioCtx.suspend();
-        isAudioPlaying = false;
-        document.getElementById('soundToggle').innerText = "🔇 Music Paused";
-      } else {
-        startSound();
-      }
-    }
+        // Create Music Notes
+        setInterval(() => {
+            const note = document.createElement('div');
+            note.className = 'music-note';
+            note.textContent = ['🎵', '🎶', '🎼'][Math.floor(Math.random() * 3)];
+            note.style.left = Math.random() * 100 + '%';
+            note.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(note);
+            
+            setTimeout(() => note.remove(), 5000);
+        }, 2000);
 
-    function playMelody() {
-      const notes = [
-        {f: 261.63, d: 0.35}, {f: 261.63, d: 0.35}, {f: 293.66, d: 0.7}, {f: 261.63, d: 0.7}, {f: 349.23, d: 0.7}, {f: 329.63, d: 1.2},
-        {f: 261.63, d: 0.35}, {f: 261.63, d: 0.35}, {f: 293.66, d: 0.7}, {f: 261.63, d: 0.7}, {f: 392.00, d: 0.7}, {f: 349.23, d: 1.2},
-        {f: 261.63, d: 0.35}, {f: 261.63, d: 0.35}, {f: 523.25, d: 0.7}, {f: 440.00, d: 0.7}, {f: 349.23, d: 0.7}, {f: 329.63, d: 0.7}, {f: 293.66, d: 1.1}
-      ];
-      let t = audioCtx.currentTime + 0.1;
-      notes.forEach(n => {
-        let osc = audioCtx.createOscillator();
-        let g = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(n.f, t);
-        g.gain.setValueAtTime(0.2, t);
-        g.gain.exponentialRampToValueAtTime(0.0001, t + n.d - 0.05);
-        osc.connect(g);
-        g.connect(audioCtx.destination);
-        osc.start(t);
-        osc.stop(t + n.d);
-        t += n.d;
-      });
-    }
+        // Create Fireworks
+        setInterval(() => {
+            for (let i = 0; i < 30; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = Math.random() * 100 + '%';
+                firework.style.top = Math.random() * 100 + '%';
+                firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                firework.style.setProperty('--x', (Math.random() - 0.5) * 200 + 'px');
+                firework.style.setProperty('--y', (Math.random() - 0.5) * 200 + 'px');
+                document.body.appendChild(firework);
+                
+                setTimeout(() => firework.remove(), 1500);
+            }
+        }, 1000);
 
-    // 3. FULL CANVAS FIREWORKS & STARS
-    const canvas = document.getElementById('fxCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
-    let particles = [];
-    const colors = ['#ffd700', '#ff0055', '#00f2fe', '#ffffff', '#ff8c00'];
-
-    function burstFireworks(x, y) {
-      for (let i = 0; i < 45; i++) {
-        const speed = Math.random() * 6 + 2;
-        const angle = Math.random() * Math.PI * 2;
-        particles.push({
-          x: x, y: y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          alpha: 1,
-          decay: Math.random() * 0.02 + 0.015
-        });
-      }
-    }
-
-    function loop() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = particles.length - 1; i >= 0; i--) {
-        let p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.06;
-        p.alpha -= p.decay;
-
-        if (p.alpha <= 0) {
-          particles.splice(i, 1);
-        } else {
-          ctx.save();
-          ctx.globalAlpha = p.alpha;
-          ctx.fillStyle = p.color;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
-        }
-      }
-      requestAnimationFrame(loop);
-    }
-    loop();
-  </script>
+        // Birthday Song Audio (Optional - uncomment if you want background music)
+        // const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+        // audio.loop = true;
+        // audio.play();
+    </script>
 </body>
 </html>
